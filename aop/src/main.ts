@@ -4,6 +4,7 @@ import { NextFunction } from 'express';
 import { LoginGuard } from './login.guard';
 import { TimeInterceptor } from './time.interceptor';
 import { ValidatePipe } from './validate.pipe';
+import { TestFilter } from './test.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,7 +23,10 @@ async function bootstrap() {
   // app.useGlobalInterceptors(new TimeInterceptor());
 
   // 全局管道 参数验证
-  app.useGlobalPipes(new ValidatePipe());
+  // app.useGlobalPipes(new ValidatePipe());
+
+  // 全局过滤器 异常处理
+  app.useGlobalFilters(new TestFilter());
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
