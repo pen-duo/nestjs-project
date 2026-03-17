@@ -23,8 +23,13 @@ if git diff --cached --quiet; then
   exit 0
 fi
 
-echo "==> 提交..."
-git commit -m "chore: sync all directories"
+echo "==> 提交（请输入 commit message，直接回车则打开编辑器）..."
+read -r -p "commit message: " msg
+if [ -n "$msg" ]; then
+  git commit -m "$msg"
+else
+  git commit
+fi
 
 echo "==> 推送..."
 git push

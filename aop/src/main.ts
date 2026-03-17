@@ -13,8 +13,8 @@ async function bootstrap() {
     console.log('after middleware');
   });
 
-  // 全局守卫 guard
-  app.useGlobalGuards(new LoginGuard());
+  // 全局守卫：已用 APP_GUARD 在 AppModule 中注册，此处不再重复
+  // app.useGlobalGuards(new LoginGuard());
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
