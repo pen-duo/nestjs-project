@@ -1,7 +1,8 @@
-import { Controller, Get, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service';
 import { LoginGuard } from './login.guard';
 import { TimeInterceptor } from './time.interceptor';
+import { ValidatePipe } from './validate.pipe';
 
 @Controller()
 export class AppController {
@@ -18,5 +19,10 @@ export class AppController {
   @UseInterceptors(TimeInterceptor)
   login(): string {
     return 'login';
+  }
+
+  @Get('ccc')
+  ccc(@Query('num', ValidatePipe) num: number): string {
+    return (num + 1).toString();
   }
 }
