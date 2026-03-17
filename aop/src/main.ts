@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NextFunction } from 'express';
 import { LoginGuard } from './login.guard';
+import { TimeInterceptor } from './time.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,6 +16,9 @@ async function bootstrap() {
 
   // 全局守卫：已用 APP_GUARD 在 AppModule 中注册，此处不再重复
   // app.useGlobalGuards(new LoginGuard());
+
+  // 全局拦截器
+  app.useGlobalInterceptors(new TimeInterceptor());
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
